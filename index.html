@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机word</title>
+    <style>
+        #content1{
+            width: 600px;
+            height: 400px;
+            background:#fff;
+            margin: 0px auto;
+            text-align: center;
+            position: relative;
+        }   
+
+        #content2{
+            width: 300px;
+            height: 100px;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:90px;
+            text-align: center;
+            position: absolute;
+            line-height: 100px;
+            font-size:30px;
+
+        }
+
+        #btn,#btnShow{
+            background: #409EFF;
+            width: 120px;
+            height: 60px;
+            font-size: 22px;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+           /* position: absolute;
+            bottom: 30px;
+            left: 50%;
+            margin-left: -90px;*/
+          /*  position: absolute;*/
+            margin: 40px 10px 10px;
+            
+        }
+        table {
+            border: 1px solid blueviolet;
+        }
+    
+    </style>
+</head>
+<body>
+    <div id="content1">
+        <div id="content2">
+            <span id="span">
+                随机点word
+            </span> 
+
+             <span id="spanChina" style="display: none;margin-top:50px">
+                随机点word
+            </span> 
+        </div>
+        <button id="btn">
+            开始
+        </button>
+        <button id="btnShow">
+            中文
+        </button>
+    </div>
+  <!--   <div class="danci">
+         <table border="1" cellpadding="20" cellspacing="0">
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>英语</td>
+                <td>中文</td>
+            </tr>
+        </thead>
+        <tbody id="contain"></tbody>
+    </table>
+    </div> -->
+    <script>
+       var arr = [
+        { CN: "退位，放弃", EN: "abdicate" },
+        { CN: "遵守，忍受", EN: "abide" },
+        { CN: "废除，取消", EN: "abolish" },
+        { CN: "充满，到处都是", EN: "abound" },
+        { CN: "绝对的，专制的", EN: "absolute" },
+        { CN: "吸收，承受", EN: "absorb" },
+        { CN: "抽象的", EN: "abstract" },
+        { CN: "大量地，非常地", EN: "abundantly" },
+        { CN: "滥用，虐待", EN: "abuse" },
+        { CN: "学术的", EN: "academic" },
+        { CN: "加速，促进", EN: "accelerate" },
+        { CN: "进入，使用", EN: "access" },
+        { CN: "称赞，喝彩", EN: "acclaim" },
+        { CN: "容纳，使适应", EN: "accommodate" },
+        { CN: "陪伴，伴随", EN: "accompany" },
+        { CN: "占比，解释，账户，资料", EN: "account" },
+        { CN: "准确性，精确性", EN: "accuracy" },
+        { CN: "实现，获得", EN: "achieve" },
+        { CN: "认可，承认", EN: "acknowledge" },
+        { CN: "获得，习得", EN: "acquire" },
+        { CN: "V.刺激，激发", EN: "activate" },
+        { CN: "严重的，急性的", EN: "acute" },
+        { CN: "适合的，能适应的", EN: "adaptable" },
+        { CN: "充足的，充分的", EN: "adequate" },
+        { CN: "坚持，遵守", EN: "adhere" },
+        { CN: "相邻的，邻接的", EN: "adjoining" },
+        { CN: "调整，适应", EN: "adjust" },
+        { CN: "管理，（美国）政府", EN: "administration" },
+        { CN: "钦佩，赞美", EN: "admire" },
+        { CN: "承认", EN: "admit" },
+        { CN: "收养，采纳", EN: "adopt" },
+        { CN: "装饰", EN: "adornment" },
+        { CN: "提倡，拥护，支持者，拥护者", EN: "advocate" },
+        { CN: "影响，感动，情感", EN: "affect" },
+        { CN: "联系，有关联的事物", EN: "affiliation" },
+        { CN: "证实，肯定", EN: "affirm" },
+        { CN: "代理，机构", EN: "agency" },
+        { CN: "加重，恶化", EN: "aggravate" },
+        { CN: "聚合，形成", EN: "aggregation" },
+        { CN: "过激的，激进的，有进取心的", EN: "aggressive" },
+        { CN: "激动的，焦虑的", EN: "agitated" },
+        { CN: "痛苦", EN: "agony" },
+        { CN: "外国的，外国人", EN: "alien" },
+        { CN: "减轻，使缓和", EN: "allay" },
+        { CN: "减轻、（使）缓和", EN: "alleviate" },
+        { CN: "陈述，指控", EN: "allegation" },
+        { CN: "联合，联盟", EN: "alliance" },
+        { CN: "分配，配置", EN: "allocation" },
+        { CN: "改变，更改", EN: "alter" },
+        { CN: "业余爱好者，业余的", EN: "amateur" },
+        { CN: "令人惊讶的", EN: "amazing" },
+        { CN: "模棱两可的，模糊不清的", EN: "ambiguous" },
+        { CN: "雄心，志向", EN: "ambition" },
+        { CN: "扩大，加强", EN: "amplify" },
+        { CN: "类比", EN: "analogy" },
+        { CN: "祖先，先驱者", EN: "ancestor" },
+        { CN: "宣布，声明", EN: "announce" },
+        { CN: "困扰，烦扰", EN: "annoy" },
+        { CN: "每年的，四季常青的，年度的", EN: "annual" },
+        { CN: "匿名", EN: "anonymity" },
+        { CN: "预测，预料", EN: "anticipate" },
+        { CN: "明显的", EN: "apparent" },
+        { CN: "请求，吸引，上诉", EN: "appeal" },
+        { CN: "安抚，安慰", EN: "appease" },
+        { CN: "运用，适用，申请", EN: "apply" },
+        { CN: "任命，指定", EN: "appoint" },
+        { CN: "感谢，欣赏，理解", EN: "appreciate" },//*
+        { CN: "不安的，忧虑的", EN: "apprehensive" },//*
+        { CN: "接近，方法，处理", EN: "approach" },
+        { CN: "适当的，合适", EN: "appropriate" },
+        { CN: "仲裁者，主宰者", EN: "arbiter" },
+        { CN: "激发，引起", EN: "arouse" },
+        { CN: "排，列", EN: "array" },
+        { CN: "人工的，人造的", EN: "artificial" },
+        { CN: "方面", EN: "aspect" },
+        { CN: "渴望，迎合", EN: "aspire" },
+        { CN: "集合，组装", EN: "assembly" },
+        { CN: "断言，宣称", EN: "assert" },
+        { CN: "评估，估算", EN: "assess" },
+        { CN: "资产", EN: "asset" },
+        { CN: "分配，布置", EN: "assign" },
+        { CN: "同化", EN: "assimilation" },
+        { CN: "假设", EN: "assume" },
+        { CN: "帮助，协助", EN: "assist" },
+        { CN: "使有联系，联合", EN: "associate" },
+        { CN: "占星的", EN: "astrological" },
+        { CN: "天文学", EN: "astronomy" },
+        { CN: "大气", EN: "atmosphere" },
+        { CN: "吸引", EN: "attract" },
+        { CN: "拍卖", EN: "auction" },
+        { CN: "官方的，权威的", EN: "authority" },
+        { CN: "自动化", EN: "automated" },
+        { CN: "可得到的，存在的", EN: "available" },
+        { CN: "尴尬的", EN: "awkward" },
+        { CN: "破产", EN: "bankruptcy" },
+        { CN: "几乎没有，仅仅", EN: "barely" },
+        { CN: "障碍", EN: "barrier " },
+        { CN: "行为，举止", EN: "behavior" },
+        { CN: "满腹", EN: "bellyful" },
+        { CN: "捐助者", EN: "benefactor" },
+        { CN: "良性的，无害的", EN: "benign" },
+        { CN: "背叛，揭露", EN: "betray" },
+        { CN: "偏见", EN: "bias" },
+        { CN: "投标，出价", EN: "bid" },
+        { CN: "双语的", EN: "bilingual" },
+        { CN: "非黑即白，二元的", EN: "binary" },
+        { CN: "有约束力的", EN: "binding" },
+        { CN: "传记的", EN: "biographical" },
+        { CN: "委员会，董事会", EN: "board" },
+        { CN: "繁荣，发展", EN: "boom" },
+        { CN: "操心，麻烦", EN: "bother" },
+        { CN: "界限，范围", EN: "boundary" },
+        { CN: "行贿，受贿", EN: "bribery" },
+        { CN: "简短的，简洁的，摘要，简报", EN: "brief" },
+        { CN: "扩大，加宽", EN: "broaden" },
+        { CN: "经纪人", EN: "broker" },
+        { CN: "气泡，冒泡", EN: "bubble" },
+        { CN: "预算", EN: "budget" },
+        { CN: "官僚主义", EN: "bureaucratic" },
+        { CN: "爆炸，爆发", EN: "burst" },
+        { CN: "运动，战役，活动", EN: "campaign" },
+        { CN: "候选人", EN: "candidate" },
+        { CN: "有能力的", EN: "capable" },
+        { CN: "捕捉，吸引，俘虏，战利品", EN: "capture" },
+        { CN: "分割，雕刻", EN: "carve" },
+        { CN: "种类，范畴", EN: "category" },
+        { CN: "迎合，为...服务", EN: "cater" },
+        { CN: "小心，谨慎，警告", EN: "caution" },
+        { CN: "腔、（牙齿的）龋洞", EN: "cavity" },
+        { CN: "庆祝", EN: "celebrate" },
+        { CN: "挑战，质疑", EN: "challenge" },
+        { CN: "特征，性质，性格，字符", EN: "character" },
+        { CN: "收费，指控，费用，控告", EN: "charge" },
+        { CN: "慈善机构", EN: "charity " },
+        { CN: "长期的，慢性的", EN: "chronic" },
+        { CN: "环行，电路", EN: "circuit" },
+        { CN: "公民的，文明的", EN: "civil" },
+        { CN: "声称，要求，索赔", EN: "claim" },
+        { CN: "清晰地", EN: "clarity" },
+        { CN: "顾客，客户", EN: "client" },
+        { CN: "遮盖，掩饰，斗篷", EN: "cloak" },
+        { CN: "提示，线索", EN: "clue" },
+        { CN: "笨拙的，不灵活的", EN: "clumsy" },
+        { CN: "联合，联盟", EN: "coalition" },
+        { CN: "认知的", EN: "cognitive" },
+        { CN: "连贯的，一致的", EN: "coherent " },
+        { CN: "巧合", EN: "coincidence" },
+        { CN: "合作的，协作的", EN: "collaborative" },
+        { CN: "倒塌，瓦解", EN: "collapse" },
+        { CN: "收集，采集", EN: "collect" },
+        { CN: "战斗，斗争，战斗的，斗争的", EN: "combat" },
+        { CN: "命令，掌握，控制", EN: "command" },
+        { CN: "纪念", EN: "commemorate" },
+        { CN: "商业的，商务的", EN: "commercial" },
+        { CN: "进行，实施", EN: "commit" },
+        { CN: "商品", EN: "commodity" },
+        { CN: "社群，文学界", EN: "community" },
+        { CN: "合同，契约", EN: "compact" },
+        { CN: "比较", EN: "compare" },
+        { CN: "强制的，令人信服的", EN: "compelling" },
+        { CN: "补偿，弥补，赔偿，抵消", EN: "compensate" },
+        { CN: "有能力的，有胜任的", EN: "competent" },
+        { CN: "竞争的", EN: "competitive" },
+        { CN: "汇编，收集", EN: "compile" },
+        { CN: "复杂的", EN: "complex" },
+        { CN: "复杂的", EN: "complicated" },
+        { CN: "遵守，遵从", EN: "comply" },
+        { CN: "组成，部分", EN: "component" },
+        { CN: "（文学、音乐、美术等）作品", EN: "composition" },
+        { CN: "加剧，混合，化合物", EN: "compound" },
+        { CN: "综合的，全面的", EN: "comprehensive" },
+        { CN: "妥协，破坏", EN: "compromise" },
+        { CN: "怀孕，构想，认为", EN: "conceive" },
+        { CN: "集中，浓缩，专心", EN: "concentrate" },
+        { CN: "概念，观念", EN: "concept " },
+        { CN: "妥协，让步", EN: "concession" },
+        { CN: "结束，推断，做出结论", EN: "conclude" },
+        { CN: "混凝土，具体的，明确的", EN: "concrete" },
+        { CN: "谴责,责备", EN: "condemn" },
+        { CN: "v.实施,指挥,管理,引导 n.行为", EN: "conduct" },
+        { CN: "赋予,协商", EN: "confer" },
+        { CN: "自信的,有信心的", EN: "confident" },
+        { CN: "v.限制,约束 n.限制 界限", EN: "confine" },
+        { CN: "确定,确认", EN: "confirm" },
+        { CN: "v.与...相冲突 n.矛盾 冲突", EN: "conflict" },
+        { CN: "v.遭遇 面对", EN: "confront" },
+
+        //22
+        // { CN: "", EN: "" },
+        // { CN: "", EN: "" },
+        // { CN: "", EN: "" },
+        // { CN: "", EN: "" },
+        // { CN: "", EN: "" },
+        // { CN: "", EN: "" },
+
+        
+       
+       
+       
+       
+       
+       
+      
+        
+        
+        
+        
+       
+        
+      ];
+    
+        var btn = document.getElementById('btn');
+         var btnShow = document.getElementById('btnShow');
+        var content = document.getElementById('content');
+         var contain = document.getElementById('contain');
+        var span = document.getElementById('span');
+        var spanChina = document.getElementById('spanChina');
+        var timer;//计时器
+        var testNum = true;
+        btn.onclick = function(){
+            if(testNum){
+                // console.log(1);
+                start();
+                btn.innerHTML = '停止';
+                btn.style.backgroundColor = "#DD001B";
+                spanChina.style.display = 'none'; 
+                testNum = false;
+            }
+            else{
+                // console.log(0);
+                stop();
+                btn.innerHTML = '开始';
+                btn.style.backgroundColor ="";
+                testNum = true;
+                spanChina.style.display = 'none'; 
+            }
+        }
+        btnShow.onclick = function(){
+            spanChina.style.display = 'block'; 
+        }
+        function start(){
+            var randomArr = []
+            var randomArrTwo=[]
+             var dd =[]
+                timer = setInterval(function(){
+                    var num = random(0,arr.length - 1);
+                    span.innerHTML = arr[num].EN;
+                    spanChina.innerHTML = arr[num].CN
+                },50)
+
+
+        }
+        function unique(arr){
+    var newArr = [];
+    for(var i = 0; i < arr.length; i++){
+        if(newArr.indexOf(arr[i]) == -1){
+            newArr.push(arr[i])
+        }
+    }
+    return newArr;
+}   
+        function stop(){
+                clearInterval(timer);      
+        }
+        // 随机函数
+        function random(a,b){
+            var randomNum = Math.round(Math.random() * (b - a) + a);
+            return randomNum;
+        }
+        // 定义变量,存储生成的字符串内容,使用 += 拼接字符串形式
+        var str = '';
+        //外层循环,生成tr
+        for (var i = 0; i <= arr.length - 1; i++) {
+            console.log(arr)
+            // 外层循环生成tr标签,循环几次,就生成几个tr标签
+            // 因为tr标签中还要有td内容,要将两个tr标签,分开,写成拼接的形式
+            str += '<tr>';
+            // 第一个单元格是单独生成的,不参与内层循环,是 当前 外层循环 索引下标+1
+            str += `<td>${i + 1}</td>`;
+            str += `<td>${arr[i].EN}</td>`;
+            str += `<td>${arr[i].CN}</td>`;
+            str += '</tr>';
+        }
+        // 将定义好的内容,写入到taody标签中
+        contain.innerHTML = str;        
+    </script>
+</body>
+</html>
+
